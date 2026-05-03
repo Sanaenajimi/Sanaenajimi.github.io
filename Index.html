@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SANAE.EXE ░ Data Scientist</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══ BOOT SCREEN ══ -->
+<div id="boot">
+  <canvas id="boot-char" style="image-rendering:pixelated;width:120px;height:168px" width="40" height="56"></canvas>
+  <div class="boot-title">SANAE.EXE</div>
+  <div class="boot-bar-wrap"><div class="boot-bar-fill" id="boot-fill"></div></div>
+  <div class="boot-text" id="boot-msg">INITIALIZING DATA PIPELINE...</div>
+</div>
+
+<!-- ══ CURSOR ══ -->
+<div class="c-dot" id="cur"></div>
+<div class="c-ring" id="cur2"></div>
+<div id="exp-bar"></div>
+<div class="notif-pop" id="notif"></div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-logo">SANAE.EXE</div>
+  <ul class="nav-links">
+    <li><a href="#hero" onclick="navToSection('hero')">HOME</a></li>
+    <li><a href="#about" onclick="navToSection('about')">STATUS</a></li>
+    <li><a href="#skills" onclick="navToSection('skills')">SKILLS</a></li>
+    <li><a href="#projects" onclick="navToSection('projects')">Projects</a></li>
+    <li><a href="#experience" onclick="navToSection('experience')">HISTORY</a></li>
+    <li><a href="#contact" onclick="navToSection('contact')">RECRUIT</a></li>
+  </ul>
+  <div class="nav-right">
+    <button id="sound-btn" onclick="toggleSound()">🔊 SON ON</button>
+    <div class="nav-badge">▷ OPEN TO WORK</div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section id="hero">
+  <div class="bg-grid"></div>
+  <div class="orb" style="width:500px;height:500px;background:var(--purple);top:-20%;right:-10%"></div>
+  <div class="orb" style="width:300px;height:300px;background:var(--teal);bottom:-10%;left:5%"></div>
+  <div class="scanlines"></div>
+
+  <div class="s-inner">
+    <!-- LEFT -->
+    <div>
+      <div class="h-eyebrow">// DATA SCIENTIST · Recherche CDI à partir de SEPT 2026 · PARIS</div>
+      <h1 class="htitle">Sanae<br><em>Najimi.</em></h1>
+      <p class="hsub">Python le jour. Power BI la nuit.<br>Je transforme vos données en décisions.</p>
+      <div class="hctas">
+        <a href="#projects" class="btn-main" onclick="navToSection('projects')">▶ VOIR MES PROJETS</a>
+        <a href="#contact" class="btn-ghost" onclick="navToSection('contact')">CONTACTER</a>
+      </div>
+      <div class="hstats">
+        <div><div class="hstat-v">99%</div><div class="hstat-l">TIME<br>SAVED</div></div>
+        <div><div class="hstat-v">96</div><div class="hstat-l">AUTO<br>QUERIES</div></div>
+        <div><div class="hstat-v">26+</div><div class="hstat-l">BI<br>REPORTS</div></div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="hero-right">
+      <div class="dlg" style="width:100%;max-width:320px">
+        <div class="dc dc-tl"></div><div class="dc dc-tr"></div>
+        <div class="dc dc-bl"></div><div class="dc dc-br"></div>
+        <div class="dlg-name">SANAE NAJIMI</div>
+        <div class="dlg-text" style="min-height:80px"><span id="dt-hero">Cliquez ▶ PLAY !</span><span class="dlg-cur" id="dc-hero" style="display:none"></span></div>
+        <div class="dlg-foot">
+          <div class="dlg-ctr" id="ctr-hero">─ / ─</div>
+          <div class="dlg-btns">
+            <button class="dbtn play" id="play-hero" onclick="startDlg('hero')">▶ PLAY</button>
+            <button class="dbtn" id="prev-hero" onclick="prevDlg('hero')" disabled style="display:none">◀</button>
+            <button class="dbtn" id="next-hero" onclick="nextDlg('hero')" disabled style="display:none">▶</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:flex-end;gap:2rem">
+        <div class="pchar-idle">
+          <canvas id="c-sanae-hero" class="pchar" width="40" height="56" style="width:120px;height:168px"></canvas>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:.3rem">
+          <div class="pchar-idle" style="animation-delay:.3s">
+            <canvas id="c-rec-hero" class="pchar" width="40" height="56" style="width:120px;height:168px"></canvas>
+          </div>
+          <div style="font-family:var(--retro);font-size:5px;color:var(--purple)">RECRUTEUR</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV ARROW -->
+  <button class="section-nav-btn" onclick="navToSection('about')">
+    <span class="arrow-icon">▼ PROFIL</span>
+  </button>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ABOUT
+══════════════════════════════════════════ -->
+<section id="about">
+  <div class="bg-grid"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--teal);bottom:-15%;right:-5%"></div>
+  <div class="scanlines"></div>
+
+  <div class="s-inner" style="display:grid;grid-template-columns:260px 1fr;gap:4rem;align-items:start;padding-top:6.5rem">
+    <!-- LEFT sticky -->
+    <div style="display:flex;flex-direction:column;gap:1rem;position:sticky;top:5.5rem">
+      <div class="dlg reveal">
+        <div class="dc dc-tl"></div><div class="dc dc-tr"></div>
+        <div class="dc dc-bl"></div><div class="dc dc-br"></div>
+        <div class="dlg-name">SANAE NAJIMI</div>
+        <div class="dlg-text" id="dt-about" style="min-height:80px">Cliquez ▶ PLAY !</div>
+        <div class="dlg-foot">
+          <div class="dlg-ctr" id="ctr-about">─ / ─</div>
+          <div class="dlg-btns">
+            <button class="dbtn play" id="play-about" onclick="startDlg('about')">▶ PLAY</button>
+            <button class="dbtn" id="prev-about" onclick="prevDlg('about')" disabled style="display:none">◀</button>
+            <button class="dbtn" id="next-about" onclick="nextDlg('about')" disabled style="display:none">▶</button>
+          </div>
+        </div>
+      </div>
+      <div class="pchar-idle" style="display:flex;justify-content:center">
+        <canvas id="c-sanae-about" class="pchar" width="40" height="56" style="width:100px;height:140px"></canvas>
+      </div>
+    </div>
+
+    <!-- RIGHT content -->
+    <div>
+      <h2 class="stitle reveal">Qui suis-je ?</h2>
+      <div class="reveal" style="font-size:.92rem;font-weight:300;line-height:1.9;color:#9494cf">
+        <p>Je suis <strong style="color:var(--text)">Data scientist en formation et Data Analyst en alternance chez Sanofi puis Adragos Pharma</strong>, au cœur d'une cession industrielle réelle. <span style="color:var(--lime)">Du vrai terrain, sous pression, avec des enjeux réglementaires réels.</span></p>
+        <br>
+        <p>Mon superpouvoir ? La curiosité et la prise d'initiative. <strong style="color:var(--text)">Je ne suis pas développeuse, mais la conception de ce portfolio m'a poussée à apprendre et à sortir de ma zone de confort !</strong> Chaque pixel des avatars a été imaginé et réalisé par moi-même via la la bibliothèque Pillow en python .</p>
+        <br>
+        <p>Je cherche un <strong style="color:var(--text)">CDI en Data/IA en Île-de-France</strong> — <span style="color:var(--lime)"> Je suis disponible à partir du 28 septembre 2026.</span></p>
+      </div>
+
+      <!-- CHARACTER STATS — augmented -->
+      <div class="stat-win reveal" id="stat-win" style="margin-top:1.8rem">
+        <div class="dc dc-tl"></div><div class="dc dc-tr"></div>
+        <div class="dc dc-bl"></div><div class="dc dc-br"></div>
+        <div class="stat-win-title">◈ CHARACTER STATS</div>
+
+        <!-- Soft skills / profil -->
+        <div class="stat-row"><div class="stat-n">Prise d'initiative</div><div class="stat-bar"><div class="stat-fill" data-w="99" style="background:linear-gradient(90deg,var(--pink),#ff80cc)"></div></div><div class="stat-pct">99</div></div>
+        <div class="stat-row"><div class="stat-n">Curiosité</div><div class="stat-bar"><div class="stat-fill" data-w="100" style="background:linear-gradient(90deg,var(--lime),#80d000)"></div></div><div class="stat-pct">100</div></div>
+        <div class="stat-row"><div class="stat-n">Adaptabilité</div><div class="stat-bar"><div class="stat-fill" data-w="95" style="background:linear-gradient(90deg,var(--teal),#00c4a8)"></div></div><div class="stat-pct">95</div></div>
+        <div class="stat-row"><div class="stat-n">ML / IA</div><div class="stat-bar"><div class="stat-fill" data-w="86" style="background:linear-gradient(90deg,var(--lime),#80d000)"></div></div><div class="stat-pct">86</div></div>
+        <div class="stat-row"><div class="stat-n">Data Viz / BI</div><div class="stat-bar"><div class="stat-fill" data-w="95" style="background:linear-gradient(90deg,var(--purple),#9b80ff)"></div></div><div class="stat-pct">95</div></div>
+        <div class="stat-row"><div class="stat-n">SQL & Bases de données</div><div class="stat-bar"><div class="stat-fill" data-w="75" style="background:linear-gradient(90deg,var(--teal),#00c4a8)"></div></div><div class="stat-pct">75</div></div>
+        <div class="stat-row"><div class="stat-n">Cloud & déploiement</div><div class="stat-bar"><div class="stat-fill" data-w="79" style="background:linear-gradient(90deg,var(--purple),#9b80ff)"></div></div><div class="stat-pct">79</div></div>
+        <div class="stat-row"><div class="stat-n">MLOps (en cours)</div><div class="stat-bar"><div class="stat-fill" data-w="65" style="background:linear-gradient(90deg,var(--orange),#ffcd5c)"></div></div><div class="stat-pct">65</div></div>
+        <div class="stat-row"><div class="stat-n">Domaine Pharma GxP</div><div class="stat-bar"><div class="stat-fill" data-w="90" style="background:linear-gradient(90deg,var(--pink),#ff80cc)"></div></div><div class="stat-pct">90</div></div>
+      </div>
+    </div>
+  </div>
+  <button class="section-nav-btn" onclick="navToSection('skills')">
+    <span class="arrow-icon">▼ Skills</span>
+  </button>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SKILLS
+══════════════════════════════════════════ -->
+<section id="skills">
+  <div class="bg-grid"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--purple);top:-10%;left:-5%"></div>
+  <div class="scanlines"></div>
+
+  <div style="max-width:1200px;margin:0 auto;padding:6rem 2.5rem 5rem">
+    <div class="reveal" style="text-align:center;margin-bottom:2.5rem">
+      <div style="font-family:var(--retro);font-size:8px;color:var(--purple);margin-bottom:.5rem">// EQUIPMENT & ABILITIES</div>
+      <h2 style="font-size:clamp(2rem,4vw,3rem);font-weight:700;letter-spacing:-.03em">Maîtrise des <em style="color:var(--lime);font-style:normal">outils</em>.</h2>
+    </div>
+
+    <div class="skill-universe reveal">
+      <!-- DATA ENGINEERING -->
+      <div class="skill-cat-header"> DATA  &amp; PIPELINES</div>
+      <div class="skill-card" style="--dot-color:var(--lime)"><span class="skill-icon"><svg viewBox="0 0 128 128" width="32" height="32"><linearGradient id="pyA" x1="70.252" y1="1237.476" x2="170.659" y2="1356.932" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.563 0 0 .568 -29.215 -702.522)"><stop offset="0" stop-color="#5A9FD4"/><stop offset="1" stop-color="#306998"/></linearGradient><linearGradient id="pyB" x1="209.474" y1="1098.811" x2="173.62" y2="1149.537" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.563 0 0 .568 -29.215 -702.522)"><stop offset="0" stop-color="#FFD43B"/><stop offset="1" stop-color="#FFE873"/></linearGradient><path fill="url(#pyA)" d="M63.391 1.988c-4.222.02-8.252.379-11.8 1.007-10.45 1.846-12.346 5.71-12.346 12.837v9.411h24.693v3.137H29.977c-7.176 0-13.46 4.313-15.426 12.521-2.268 9.405-2.368 15.275 0 25.096 1.755 7.311 5.947 12.519 13.124 12.519h8.491V67.234c0-8.151 7.051-15.34 15.426-15.34h24.665c6.866 0 12.346-5.654 12.346-12.548V15.833c0-6.693-5.646-11.72-12.346-12.837-4.244-.706-8.645-1.027-12.866-1.008zm-13.354 7.569c2.55 0 4.634 2.117 4.634 4.721 0 2.593-2.083 4.69-4.634 4.69-2.56 0-4.633-2.097-4.633-4.69-.001-2.604 2.073-4.721 4.633-4.721z"/><path fill="url(#pyB)" d="M91.682 28.38v10.966c0 8.5-7.208 15.655-15.426 15.655H51.591c-6.756 0-12.346 5.783-12.346 12.549v23.515c0 6.691 5.818 10.628 12.346 12.547 7.816 2.297 15.312 2.713 24.665 0 6.216-1.801 12.346-5.423 12.346-12.547v-9.412H63.938v-3.138h37.012c7.176 0 9.852-5.005 12.348-12.519 2.578-7.735 2.467-15.174 0-25.096-1.774-7.145-5.161-12.521-12.348-12.521h-9.268zM77.809 87.927c2.561 0 4.634 2.097 4.634 4.692 0 2.602-2.074 4.719-4.634 4.719-2.55 0-4.633-2.117-4.633-4.719 0-2.595 2.083-4.692 4.633-4.692z"/></svg></span><div class="skill-name">PYTHON</div><div class="skill-level">· 89/100</div><div class="skill-dots" id="sd-py"></div></div>
+      <div class="skill-card" style="--dot-color:var(--teal)"><span class="skill-cat">CLOUD</span><span class="skill-icon">❄️</span><div class="skill-name">SNOWFLAKE</div><div class="skill-level">· 75/100</div><div class="skill-dots" id="sd-sf"></div></div>
+      <div class="skill-card" style="--dot-color:var(--teal)"><span class="skill-cat">DB</span><span class="skill-icon">
+<svg viewBox="0 0 128 128" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="lg-pg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#336791"/>
+      <stop offset="100%" stop-color="#1a3a5c"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="128" height="128" rx="16" fill="url(#lg-pg)"/>
+  <!-- Elephant head -->
+  <ellipse cx="58" cy="44" rx="28" ry="26" fill="white" opacity=".95"/>
+  <!-- Ear -->
+  <ellipse cx="30" cy="38" rx="10" ry="14" fill="white" opacity=".7"/>
+  <ellipse cx="30" cy="38" rx="6" ry="9" fill="#336791" opacity=".6"/>
+  <!-- Eye -->
+  <circle cx="52" cy="36" r="4" fill="#336791"/>
+  <circle cx="52" cy="36" r="2" fill="white"/>
+  <circle cx="68" cy="36" r="4" fill="#336791"/>
+  <circle cx="68" cy="36" r="2" fill="white"/>
+  <!-- Trunk -->
+  <path d="M72 56 Q90 60 88 80 Q86 92 76 90" fill="none" stroke="white" stroke-width="7" stroke-linecap="round" opacity=".9"/>
+  <!-- Tusk -->
+  <path d="M44 62 Q36 72 40 80" fill="none" stroke="#FFD700" stroke-width="4" stroke-linecap="round" opacity=".85"/>
+  <!-- PostgreSQL text -->
+  <rect x="0" y="96" width="128" height="32" rx="0" fill="#1a3a5c" opacity=".6"/>
+  <text x="64" y="118" text-anchor="middle" fill="white" font-family="Arial Black, sans-serif" font-size="11" font-weight="900" letter-spacing="1" opacity=".95">PostgreSQL</text>
+</svg>
+</span><div class="skill-name">SQL / POSTGRESQL</div><div class="skill-level">· 69/100</div><div class="skill-dots" id="sd-sql"></div></div>
+      <div class="skill-card" style="--dot-color:var(--lime)"><span class="skill-cat">ETL</span><span class="skill-icon">🔄</span><div class="skill-name">PANDAS / ETL</div><div class="skill-level">· 93/100</div><div class="skill-dots" id="sd-etl"></div></div>
+
+      <!-- BUSINESS INTELLIGENCE -->
+      <div class="skill-cat-header">📊 BUSINESS INTELLIGENCE</div>
+      <div class="skill-card" style="--dot-color:var(--purple)"><span class="skill-cat">BI</span><span class="skill-icon"><svg viewBox="0 0 24 24" width="32" height="32"><rect width="4" height="10" x="2" y="14" rx="1" fill="#F2C94C"/><rect width="4" height="14" x="8" y="10" rx="1" fill="#F2994A"/><rect width="4" height="18" x="14" y="6" rx="1" fill="#EB5757"/><rect width="4" height="22" x="20" y="2" rx="1" fill="#E84393" opacity=".85"/><path d="M2 3c5 0 9 2 12 5 3 3 5 7 5 12" stroke="#F9A825" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></span><div class="skill-name">POWER BI</div><div class="skill-level">· 95/100</div><div class="skill-dots" id="sd-pbi"></div></div>
+      <div class="skill-card" style="--dot-color:var(--purple)"><span class="skill-cat">FORMULA</span><span class="skill-icon">
+<svg viewBox="0 0 128 128" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="lg-dax" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F2C94C"/>
+      <stop offset="100%" stop-color="#F2994A"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="120" height="120" rx="14" fill="url(#lg-dax)"/>
+  <rect x="16" y="72" width="16" height="36" rx="3" fill="#7D3C00" opacity=".85"/>
+  <rect x="36" y="54" width="16" height="54" rx="3" fill="#7D3C00" opacity=".85"/>
+  <rect x="56" y="38" width="16" height="70" rx="3" fill="#7D3C00" opacity=".85"/>
+  <rect x="76" y="22" width="16" height="86" rx="3" fill="#7D3C00" opacity=".85"/>
+  <rect x="4" y="110" width="120" height="14" rx="0" fill="#7D3C00" opacity=".2"/>
+  <text x="64" y="121" text-anchor="middle" fill="#3D1C00" font-family="Arial Black, sans-serif" font-size="14" font-weight="900" letter-spacing="3">DAX</text>
+  <circle cx="106" cy="22" r="4" fill="white" opacity=".6"/>
+</svg>
+</span><div class="skill-name">DAX</div><div class="skill-level">· 89/100</div><div class="skill-dots" id="sd-dax"></div></div>
+      <div class="skill-card" style="--dot-color:var(--purple)"><span class="skill-cat">QUERY</span><span class="skill-icon">⚙️</span><div class="skill-name">POWER QUERY M</div><div class="skill-level">· 85/100</div><div class="skill-dots" id="sd-pq"></div></div>
+      <div class="skill-card" style="--dot-color:var(--orange)"><span class="skill-cat">PHARMA</span><span class="skill-icon">💊</span><div class="skill-name">GxP / BPF REPORTING</div><div class="skill-level">· 90/100</div><div class="skill-dots" id="sd-gxp"></div></div>
+
+      <!-- MACHINE LEARNING & AI -->
+      <div class="skill-cat-header">🤖 MACHINE LEARNING &amp; AI</div>
+      <div class="skill-card" style="--dot-color:var(--pink)"><span class="skill-cat">ML</span><span class="skill-icon">🤖</span><div class="skill-name">SCIKIT-LEARN</div><div class="skill-level">· 84/100</div><div class="skill-dots" id="sd-sk"></div></div>
+      <div class="skill-card" style="--dot-color:var(--pink)"><span class="skill-cat">BOOST</span><span class="skill-icon">
+<svg viewBox="0 0 128 128" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="lg-xgb" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#189ABD"/>
+      <stop offset="100%" stop-color="#0d6e8a"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="128" height="128" rx="16" fill="url(#lg-xgb)"/>
+  <!-- Tree 1 -->
+  <line x1="32" y1="90" x2="32" y2="50" stroke="white" stroke-width="3" opacity=".9"/>
+  <line x1="32" y1="60" x2="16" y2="40" stroke="white" stroke-width="2.5" opacity=".9"/>
+  <line x1="32" y1="60" x2="48" y2="40" stroke="white" stroke-width="2.5" opacity=".9"/>
+  <line x1="16" y1="40" x2="10" y2="26" stroke="white" stroke-width="2" opacity=".75"/>
+  <line x1="16" y1="40" x2="22" y2="26" stroke="white" stroke-width="2" opacity=".75"/>
+  <line x1="48" y1="40" x2="42" y2="26" stroke="white" stroke-width="2" opacity=".75"/>
+  <line x1="48" y1="40" x2="54" y2="26" stroke="white" stroke-width="2" opacity=".75"/>
+  <circle cx="10" cy="24" r="5" fill="#FFD43B"/>
+  <circle cx="22" cy="24" r="5" fill="#FFD43B"/>
+  <circle cx="42" cy="24" r="5" fill="#FFD43B"/>
+  <circle cx="54" cy="24" r="5" fill="#FFD43B"/>
+  <!-- Tree 2 — offset right, slightly smaller -->
+  <line x1="88" y1="90" x2="88" y2="54" stroke="white" stroke-width="3" opacity=".75"/>
+  <line x1="88" y1="65" x2="72" y2="46" stroke="white" stroke-width="2.5" opacity=".75"/>
+  <line x1="88" y1="65" x2="104" y2="46" stroke="white" stroke-width="2.5" opacity=".75"/>
+  <line x1="72" y1="46" x2="65" y2="32" stroke="white" stroke-width="2" opacity=".6"/>
+  <line x1="72" y1="46" x2="79" y2="32" stroke="white" stroke-width="2" opacity=".6"/>
+  <line x1="104" y1="46" x2="97" y2="32" stroke="white" stroke-width="2" opacity=".6"/>
+  <line x1="104" y1="46" x2="111" y2="32" stroke="white" stroke-width="2" opacity=".6"/>
+  <circle cx="65" cy="30" r="4" fill="#FFD43B" opacity=".8"/>
+  <circle cx="79" cy="30" r="4" fill="#FFD43B" opacity=".8"/>
+  <circle cx="97" cy="30" r="4" fill="#FFD43B" opacity=".8"/>
+  <circle cx="111" cy="30" r="4" fill="#FFD43B" opacity=".8"/>
+  <!-- Ground line -->
+  <rect x="10" y="91" width="108" height="3" rx="1.5" fill="white" opacity=".3"/>
+  <!-- Label -->
+  <rect x="0" y="98" width="128" height="30" rx="0" fill="#0d6e8a" opacity=".5"/>
+  <text x="64" y="114" text-anchor="middle" fill="white" font-family="Arial Black, sans-serif" font-size="10" font-weight="900" letter-spacing="1">XGBoost · RF</text>
+</svg>
+</span><div class="skill-name">XGBOOST / RF</div><div class="skill-level">· 82/100</div><div class="skill-dots" id="sd-xgb"></div></div>
+      <div class="skill-card" style="--dot-color:var(--pink)"><span class="skill-cat">VISION</span><span class="skill-icon">
+<svg viewBox="0 0 128 128" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="lg-cnn-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#16213e"/>
+    </linearGradient>
+    <linearGradient id="lg-cnn-l1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e96c6c"/>
+      <stop offset="100%" stop-color="#c0392b"/>
+    </linearGradient>
+    <linearGradient id="lg-cnn-l2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e67e22"/>
+      <stop offset="100%" stop-color="#d35400"/>
+    </linearGradient>
+    <linearGradient id="lg-cnn-l3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f1c40f"/>
+      <stop offset="100%" stop-color="#d4ac0d"/>
+    </linearGradient>
+    <linearGradient id="lg-cnn-l4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2ecc71"/>
+      <stop offset="100%" stop-color="#27ae60"/>
+    </linearGradient>
+    <linearGradient id="lg-cnn-out" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3498db"/>
+      <stop offset="100%" stop-color="#2980b9"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="128" height="128" rx="16" fill="url(#lg-cnn-bg)"/>
+  <rect x="8" y="22" width="14" height="84" rx="3" fill="url(#lg-cnn-l1)"/>
+  <rect x="27" y="30" width="12" height="68" rx="3" fill="url(#lg-cnn-l2)"/>
+  <rect x="44" y="38" width="10" height="52" rx="3" fill="url(#lg-cnn-l3)"/>
+  <rect x="60" y="32" width="10" height="64" rx="3" fill="url(#lg-cnn-l4)"/>
+  <rect x="76" y="38" width="10" height="52" rx="3" fill="url(#lg-cnn-l4)" opacity=".75"/>
+  <circle cx="104" cy="38" r="5" fill="url(#lg-cnn-out)"/>
+  <circle cx="104" cy="52" r="5" fill="url(#lg-cnn-out)"/>
+  <circle cx="104" cy="66" r="5" fill="url(#lg-cnn-out)"/>
+  <circle cx="104" cy="80" r="5" fill="url(#lg-cnn-out)"/>
+  <circle cx="104" cy="94" r="5" fill="url(#lg-cnn-out)" opacity=".6"/>
+  <line x1="86" y1="64" x2="99" y2="38" stroke="#3498db" stroke-width="0.8" opacity=".35"/>
+  <line x1="86" y1="64" x2="99" y2="52" stroke="#3498db" stroke-width="0.8" opacity=".35"/>
+  <line x1="86" y1="64" x2="99" y2="66" stroke="#3498db" stroke-width="1.2" opacity=".55"/>
+  <line x1="86" y1="64" x2="99" y2="80" stroke="#3498db" stroke-width="0.8" opacity=".35"/>
+  <line x1="86" y1="64" x2="99" y2="94" stroke="#3498db" stroke-width="0.8" opacity=".25"/>
+  <text x="55" y="118" text-anchor="middle" fill="white" font-family="Arial Black, sans-serif" font-size="9" font-weight="900" opacity=".9">CNN · ResNet50</text>
+</svg>
+</span><div class="skill-name">CNN / RESNET50</div><div class="skill-level">· 76/100</div><div class="skill-dots" id="sd-cnn"></div></div>
+      <div class="skill-card" style="--dot-color:var(--pink)"><span class="skill-cat">NLP</span><span class="skill-icon">🧠</span><div class="skill-name">RAG / LANGCHAIN / LLAMA</div><div class="skill-level">· 75/100</div><div class="skill-dots" id="sd-rag"></div></div>
+
+      <!-- FULLSTACK & DEVOPS -->
+      <div class="skill-cat-header">🌐 FULLSTACK &amp; DEVOPS</div>
+      <div class="skill-card" style="--dot-color:var(--teal)"><span class="skill-cat">FRONT</span><span class="skill-icon">⚛️</span><div class="skill-name">REACT / FLASK</div><div class="skill-level">· 76/100</div><div class="skill-dots" id="sd-react"></div></div>
+      <div class="skill-card" style="--dot-color:var(--teal)"><span class="skill-cat">CI/CD</span><span class="skill-icon"><svg viewBox="0 0 128 128" width="32" height="32" fill="#fff"><path fill-rule="evenodd" d="M64 5.103c-33.347 0-60.388 27.035-60.388 60.388 0 26.682 17.303 49.317 41.297 57.303 3.017.56 4.125-1.31 4.125-2.905 0-1.44-.056-6.197-.082-11.243-16.8 3.653-20.345-7.125-20.345-7.125-2.747-6.98-6.705-8.836-6.705-8.836-5.48-3.748.413-3.67.413-3.67 6.063.425 9.257 6.223 9.257 6.223 5.386 9.23 14.127 6.562 17.573 5.02.542-3.903 2.107-6.568 3.834-8.076-13.413-1.525-27.514-6.707-27.514-29.843 0-6.593 2.36-11.98 6.223-16.21-.628-1.52-2.695-7.662.584-15.98 0 0 5.07-1.623 16.61 6.19C53.7 35 58.867 34.327 64 34.304c5.13.023 10.3.694 15.127 2.033 11.526-7.813 16.59-6.19 16.59-6.19 3.287 8.317 1.22 14.46.593 15.98 3.872 4.23 6.215 9.617 6.215 16.21 0 23.194-14.127 28.3-27.574 29.796 2.167 1.874 4.097 5.55 4.097 11.183 0 8.08-.07 14.583-.07 16.572 0 1.607 1.088 3.49 4.148 2.897 23.98-7.994 41.263-30.622 41.263-57.294C124.388 32.14 97.35 5.104 64 5.104z"/></svg></span><div class="skill-name">GITHUB ACTIONS</div><div class="skill-level">· 72/100</div><div class="skill-dots" id="sd-cicd"></div></div>
+      <div class="skill-card" style="--dot-color:var(--teal)"><span class="skill-cat">INFRA</span><span class="skill-icon">🐳</span><div class="skill-name">DOCKER (EN COURS)</div><div class="skill-level">· 57/100</div><div class="skill-dots" id="sd-docker"></div></div>
+      <div class="skill-card" style="--dot-color:var(--lime)"><span class="skill-cat">AUTO</span><span class="skill-icon">
+<svg viewBox="0 0 128 128" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="lg-sap" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#009FDF"/>
+      <stop offset="100%" stop-color="#0070AD"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="128" height="128" rx="16" fill="url(#lg-sap)"/>
+  <path d="M18 44 Q18 34 30 34 L52 34 L52 42 L30 42 Q26 42 26 46 Q26 50 30 50 L44 50 Q56 50 56 62 Q56 74 44 74 L18 74 L18 66 L44 66 Q50 66 50 62 Q50 58 44 58 L30 58 Q18 58 18 44Z" fill="white"/>
+  <polygon points="60,34 76,34 92,74 82,74 72,48 62,74 52,74" fill="white"/>
+  <rect x="60" y="60" width="24" height="8" fill="white"/>
+  <path d="M96 34 L96 74 L104 74 L104 60 L114 60 Q126 60 126 47 Q126 34 114 34Z M104 42 L114 42 Q118 42 118 47 Q118 52 114 52 L104 52Z" fill="white"/>
+  <rect x="10" y="84" width="108" height="2" rx="1" fill="white" opacity=".3"/>
+  <text x="64" y="102" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="9" font-weight="700" opacity=".85" letter-spacing="1">PyAutoGUI</text>
+  <text x="64" y="116" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" opacity=".55" letter-spacing=".5">OCR · Automation</text>
+</svg>
+</span><div class="skill-name">PYAUTOGUI / OCR / SAP</div><div class="skill-level">· 80/100</div><div class="skill-dots" id="sd-sap"></div></div>
+    </div>
+
+    <!-- LANGUAGES -->
+    <div class="lang-grid reveal">
+      <div class="lang-card"><span class="lang-flag">🇲🇦</span><div class="lang-name">ARABE</div><div class="lang-lvl">Langue maternelle</div></div>
+      <div class="lang-card"><span class="lang-flag">🇫🇷</span><div class="lang-name">FRANÇAIS</div><div class="lang-lvl">Bilingue </div></div>
+      <div class="lang-card"><span class="lang-flag">🇬🇧</span><div class="lang-name">ANGLAIS</div><div class="lang-lvl">Courant </div></div>
+      <div class="lang-card"><span class="lang-flag">🇨🇳</span><div class="lang-name">MANDARIN</div><div class="lang-lvl">Intermédiaire </div></div>
+    </div>
+
+    <!-- CERTIFICATIONS — improved visibility -->
+    <div class="cert-strip reveal">
+      <div class="cert-badge">
+        <span class="cert-icon">🎓</span>
+        <div class="cert-text">Certification<br>DATAIKU CORE DESIGNER · 2025</div>
+      </div>
+      <div class="cert-badge">
+        <span class="cert-icon">💊</span>
+        <div class="cert-text">Expérience terrain<br>GxP / BPF · SANOFI → ADRAGOS</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="section-nav-btn" onclick="navToSection('projects')">
+    <span class="arrow-icon">▼ Projets</span>
+  </button>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROJECTS RPG
+══════════════════════════════════════════ -->
+<section id="projects">
+  <div class="bg-grid"></div>
+  <div class="orb" style="width:450px;height:450px;background:var(--purple);top:-10%;left:-8%"></div>
+  <div class="scanlines"></div>
+
+  <div class="proj-header reveal">
+    <div class="proj-eyebrow">// QUEST LOG</div>
+    <h2 class="proj-main-title">Mes projets <em style="color:var(--lime);font-style:normal">en action</em>.</h2>
+    <p class="proj-sub">Chaque projet = une scène que j'ai vécue en réalité. Cliquez sur  <span style="color:var(--lime);font-family:var(--retro);font-size:.75em"> SUIVANT</span> pour avancer </p>
+  </div>
+
+  <div style="max-width:1100px;margin:0 auto;padding:0 2rem 7rem">
+    <!-- TABS -->
+    <div class="project-tabs reveal">
+      <button class="proj-tab active" onclick="switchProject(0)"><span class="proj-num">PROJET 01</span><span class="proj-name">⚙️ SAP AUTO</span></button>
+      <button class="proj-tab" onclick="switchProject(1)"><span class="proj-num">PROJET 02</span><span class="proj-name">❄️ SNOWFLAKE</span></button>
+      <button class="proj-tab" onclick="switchProject(2)"><span class="proj-num">PROJET 03</span><span class="proj-name">🧠 RAG AI</span></button>
+      <button class="proj-tab" onclick="switchProject(3)"><span class="proj-num">PROJET 04</span><span class="proj-name">🫁 CANCER CV</span></button>
+    </div>
+
+    <div class="rpg-stage reveal">
+
+      <!-- PROJECT 0: SAP AUTOMATION -->
+      <div class="rpg-scene active" id="proj-0">
+        <div class="rpg-scenes-wrap">
+          <div class="rpg-sub-scene current" id="ss-0-0"><canvas class="scene-bg-canvas" id="bg-0-0"></canvas><div class="rpg-char-layer" id="cl-0-0"></div></div>
+          <div class="rpg-sub-scene" id="ss-0-1"><canvas class="scene-bg-canvas" id="bg-0-1"></canvas><div class="rpg-char-layer" id="cl-0-1"></div><div class="scene-bulb" id="bulb-0" style="top:30px;right:90px">💡</div></div>
+          <div class="rpg-sub-scene" id="ss-0-2"><canvas class="scene-bg-canvas" id="bg-0-2"></canvas><div class="rpg-char-layer" id="cl-0-2"></div></div>
+          <div class="rpg-sub-scene" id="ss-0-3"><canvas class="scene-bg-canvas" id="bg-0-3"></canvas><div class="rpg-char-layer" id="cl-0-3"></div></div>
+        </div>
+        <div class="rpg-narrative">
+          <div class="scene-dlg-box">
+            <div class="step-badge" id="step-0">ACTE 1 / 4</div>
+            <div class="scene-speaker" id="spk-0">ÉQUIPE GMAO</div>
+            <div class="scene-text" id="txt-0"><span class="scene-cur"></span></div>
+          </div>
+          <div class="proj-impact-bar" id="imp-0" style="display:none">
+            <div class="proj-impact-item"><div class="proj-impact-v">39h→20m</div><div class="proj-impact-l">EXTRACTION SAP</div></div>
+            <div class="proj-impact-item"><div class="proj-impact-v">100%</div><div class="proj-impact-l">AUTO DAILY</div></div>
+            <div class="proj-impact-item"><div class="proj-impact-v">0</div><div class="proj-impact-l">ERREUR HUMAINE</div></div>
+            <div class="proj-impact-item"><div class="proj-impact-v">OCR+YAML</div><div class="proj-impact-l">STACK TECH</div></div>
+          </div>
+          <div class="proj-tags" id="tags-0" style="display:none">
+            <span class="ptag">Python</span><span class="ptag">PyAutoGUI</span><span class="ptag">Tesseract OCR</span><span class="ptag">YAML Config</span><span class="ptag">SAP IH06/IH08</span><span class="ptag">Power BI</span><span class="ptag">DAX</span><span class="ptag">SharePoint</span>
+          </div>
+          <div class="rpg-controls">
+            <div class="rpg-progress" id="prog-0"><div class="rpg-dot current"></div><div class="rpg-dot"></div><div class="rpg-dot"></div><div class="rpg-dot"></div></div>
+            <div class="rpg-nav-btns">
+              <button class="rpg-btn" id="prev-0" onclick="prevScene(0)" disabled>◀ RETOUR</button>
+              <button class="rpg-btn primary" id="next-0" onclick="nextScene(0)">SUIVANT ▶</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 1: SNOWFLAKE -->
+      <div class="rpg-scene" id="proj-1">
+        <div class="rpg-scenes-wrap">
+          <div class="rpg-sub-scene current" id="ss-1-0"><canvas class="scene-bg-canvas" id="bg-1-0"></canvas><div class="rpg-char-layer" id="cl-1-0"></div></div>
+          <div class="rpg-sub-scene" id="ss-1-1"><canvas class="scene-bg-canvas" id="bg-1-1"></canvas><div class="rpg-char-layer" id="cl-1-1"></div><div class="scene-bulb" id="bulb-1" style="top:30px;right:90px">⚡</div></div>
+          <div class="rpg-sub-scene" id="ss-1-2"><canvas class="scene-bg-canvas" id="bg-1-2"></canvas><div class="rpg-char-layer" id="cl-1-2"></div></div>
+        </div>
+        <div class="rpg-narrative">
+          <div class="scene-dlg-box">
+            <div class="step-badge" id="step-1">ACTE 1 / 3</div>
+            <div class="scene-speaker" id="spk-1">MANAGER</div>
+            <div class="scene-text" id="txt-1"><span class="scene-cur"></span></div>
+          </div>
+          <div class="proj-impact-bar" id="imp-1" style="display:none">
+            <div class="proj-impact-item"><div class="proj-impact-v">-98%</div><div class="proj-impact-l">TEMPS GAGNÉ</div></div>
+            <div class="proj-impact-item"><div class="proj-impact-v">96</div><div class="proj-impact-l">REQUÊTES AUTO</div></div>
+            <div class="proj-impact-item"><div class="proj-impact-v">26</div><div class="proj-impact-l">RAPPORTS PBI</div></div>
+            <div class="proj-impact-item"><div class="proj-impact-v">∥</div><div class="proj-impact-l">PARALLÉLISME</div></div>
+          </div>
+          <div class="proj-tags" id="tags-1" style="display:none">
+            <span class="ptag">Python</span><span class="ptag">Snowflake</span><span class="ptag">Power BI</span><span class="ptag">M Query Parser</span><span class="ptag">asyncio</span><span class="ptag">GxP/BPF</span><span class="ptag">Sanofi→Adragos</span>
+          </div>
+          <div class="rpg-controls">
+            <div class="rpg-progress" id="prog-1"><div class="rpg-dot current"></div><div class="rpg-dot"></div><div class="rpg-dot"></div></div>
+            <div class="rpg-nav-btns">
+              <button class="rpg-btn" id="prev-1" onclick="prevScene(1)" disabled>◀ RETOUR</button>
+              <button class="rpg-btn primary" id="next-1" onclick="nextScene(1)">SUIVANT ▶</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 2: RAG AI -->
+      <div class="rpg-scene" id="proj-2">
+        <div class="rpg-scenes-wrap">
+          <div class="rpg-sub-scene current" id="ss-2-0"><canvas class="scene-bg-canvas" id="bg-2-0"></canvas><div class="rpg-char-layer" id="cl-2-0"></div></div>
+          <div class="rpg-sub-scene" id="ss-2-1"><canvas class="scene-bg-canvas" id="bg-2-1"></canvas><div class="rpg-char-layer" id="cl-2-1"></div></div>
+          <div class="rpg-sub-scene" id="ss-2-2"><canvas class="scene-bg-canvas" id="bg-2-2"></canvas><div class="rpg-char-layer" id="cl-2-2"></div></div>
+        </div>
+        <div class="rpg-narrative">
+          <div class="scene-dlg-box">
+            <div class="step-badge" id="step-2">ACTE 1 / 3</div>
+            <div class="scene-speaker" id="spk-2">SANAE</div>
+            <div class="scene-text" id="txt-2"><span class="scene-cur"></span></div>
+          </div>
+          <div class="proj-impact-bar" id="imp-2" style="display:none">
+            <div class="proj-impact-item"><div class="proj-impact-v">100%</div><div class="proj-impact-l">LOCAL NO API</div></div>
+            <div class="proj-impact-item"><div class="proj-impact-v">LLaMA3</div><div class="proj-impact-l">MODÈLE LLM</div></div>
+            <div class="proj-impact-item"><div class="proj-impact-v">FAISS</div><div class="proj-impact-l">VECTOR STORE</div></div>
+            <div class="proj-impact-item"><div class="proj-impact-v">0€</div><div class="proj-impact-l">COÛT CLOUD</div></div>
+          </div>
+          <div class="proj-tags" id="tags-2" style="display:none">
+            <span class="ptag">LLaMA 3</span><span class="ptag">LangChain</span><span class="ptag">FAISS</span><span class="ptag">Ollama</span><span class="ptag">sentence-transformers</span><span class="ptag">Streamlit</span><span class="ptag">Plotly</span>
+          </div>
+          <div class="rpg-controls">
+            <div class="rpg-progress" id="prog-2"><div class="rpg-dot current"></div><div class="rpg-dot"></div><div class="rpg-dot"></div></div>
+            <div class="rpg-nav-btns">
+              <button class="rpg-btn" id="prev-2" onclick="prevScene(2)" disabled>◀ RETOUR</button>
+              <button class="rpg-btn primary" id="next-2" onclick="nextScene(2)">SUIVANT ▶</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 3: CANCER CV -->
+      <div class="rpg-scene" id="proj-3">
+        <div class="rpg-scenes-wrap">
+          <div class="rpg-sub-scene current" id="ss-3-0"><canvas class="scene-bg-canvas" id="bg-3-0"></canvas><div class="rpg-char-layer" id="cl-3-0"></div></div>
+          <div class="rpg-sub-scene" id="ss-3-1"><canvas class="scene-bg-canvas" id="bg-3-1"></canvas><div class="rpg-char-layer" id="cl-3-1"></div></div>
+          <div class="rpg-sub-scene" id="ss-3-2"><canvas class="scene-bg-canvas" id="bg-3-2"></canvas><div class="rpg-char-layer" id="cl-3-2"></div></div>
+        </div>
+        <div class="rpg-narrative">
+          <div class="scene-dlg-box">
+            <div class="step-badge" id="step-3">ACTE 1 / 3</div>
+            <div class="scene-speaker" id="spk-3">PROFESSEUR</div>
+            <div class="scene-text" id="txt-3"><span class="scene-cur"></span></div>
+          </div>
+          <div class="proj-impact-bar" id="imp-3" style="display:none">
+            <div class="proj-impact-item"><div class="proj-impact-v">4</div><div class="proj-impact-l">MODÈLES ML</div></div>
+            <div class="proj-impact-item"><div class="proj-impact-v">ResNet50</div><div class="proj-impact-l">MEILLEUR</div></div>
+            <div class="proj-impact-item"><div class="proj-impact-v">JSRT</div><div class="proj-impact-l">DATASET</div></div>
+            <div class="proj-impact-item"><div class="proj-impact-v">LIVE</div><div class="proj-impact-l">RENDER DEPLOY</div></div>
+          </div>
+          <div class="proj-tags" id="tags-3" style="display:none">
+            <span class="ptag">CNN</span><span class="ptag">ResNet50</span><span class="ptag">XGBoost</span><span class="ptag">Random Forest</span><span class="ptag">JSRT Dataset</span><span class="ptag">Streamlit</span><span class="ptag">Render</span><span class="ptag">GitHub Actions</span>
+          </div>
+          <div class="rpg-controls">
+            <div class="rpg-progress" id="prog-3"><div class="rpg-dot current"></div><div class="rpg-dot"></div><div class="rpg-dot"></div></div>
+            <div class="rpg-nav-btns">
+              <button class="rpg-btn" id="prev-3" onclick="prevScene(3)" disabled>◀ RETOUR</button>
+              <button class="rpg-btn primary" id="next-3" onclick="nextScene(3)">SUIVANT ▶</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /rpg-stage -->
+  </div>
+
+  <button class="section-nav-btn" onclick="navToSection('experience')">
+    <span class="arrow-icon">▼ Parcours</span> 
+  </button>
+</section>
+
+<!-- ══════════════════════════════════════════
+     EXPERIENCE
+══════════════════════════════════════════ -->
+<section id="experience">
+  <div class="bg-grid"></div>
+  <div class="orb" style="width:350px;height:350px;background:var(--purple);bottom:-10%;right:-8%"></div>
+  <div class="scanlines"></div>
+
+  <div class="s-inner" style="display:grid;grid-template-columns:260px 1fr;gap:4rem;align-items:start;padding-top:6.5rem">
+    <!-- LEFT sticky -->
+    <div style="display:flex;flex-direction:column;gap:1rem;position:sticky;top:5.5rem">
+      <div class="dlg reveal">
+        <div class="dc dc-tl"></div><div class="dc dc-tr"></div>
+        <div class="dc dc-bl"></div><div class="dc dc-br"></div>
+        <div class="dlg-name">SANAE</div>
+        <div class="dlg-text" id="dt-exp" style="min-height:70px">Cliquez ▶ PLAY !</div>
+        <div class="dlg-foot">
+          <div class="dlg-ctr" id="ctr-exp">─ / ─</div>
+          <div class="dlg-btns">
+            <button class="dbtn play" id="play-exp" onclick="startDlg('exp')">▶ PLAY</button>
+            <button class="dbtn" id="prev-exp" onclick="prevDlg('exp')" disabled style="display:none">◀</button>
+            <button class="dbtn" id="next-exp" onclick="nextDlg('exp')" disabled style="display:none">▶</button>
+          </div>
+        </div>
+      </div>
+      <div class="pchar-idle" style="display:flex;justify-content:center">
+        <canvas id="c-sanae-exp" class="pchar" width="40" height="56" style="width:100px;height:140px"></canvas>
+      </div>
+    </div>
+
+    <!-- RIGHT content -->
+    <div>
+      <div class="eyebrow reveal">ADVENTURE LOG</div>
+      <h2 class="stitle reveal">Mon parcours.</h2>
+
+      <div class="reveal">
+
+        <!-- ADRAGOS / SANOFI -->
+        <div class="titem">
+          <div class="t-period">SEPT 2024<br>→<br>SEPT 2026</div>
+          <div class="titem-dot"></div>
+          <div class="t-content">
+            <div class="t-co">SANOFI → ADRAGOS PHARMA</div>
+            <div class="t-role">Data Analyst / Data Scientist · Alternance</div>
+            <p class="t-desc">Au cœur d'une cession industrielle réelle, j'ai piloté la migration de 26 rapports Power BI vers un nouveau tenant Azure/SharePoint, en maintenant la continuité de service malgré une coupure d'accès Snowflake imminente. J'ai conçu un pipeline Python d'extraction automatisée qui a réduit le temps de traitement de 39h à 15 minutes (−98%). En parallèle, j'ai développé un assistant IA RAG local (LLaMA 3 + LangChain + FAISS) pour l'analyse des KPIs pharmaceutiques — sans aucun coût cloud et en respectant la confidentialité GxP/BPF.</p>
+            <div class="t-highlights">
+              <span class="t-tag">Power BI · DAX avancé</span>
+              <span class="t-tag">Snowflake · Python</span>
+              <span class="t-tag">RAG · LLaMA 3</span>
+              <span class="t-tag">GxP / BPF</span>
+              <span class="t-tag">Azure · SharePoint</span>
+              <span class="t-tag">SAP Automation</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- BALCONY PARIS -->
+        <div class="titem">
+          <div class="t-period">AVR 2024<br>→<br>JUIL 2024</div>
+          <div class="titem-dot"></div>
+          <div class="t-content">
+            <div class="t-co">BALCONY PARIS</div>
+            <div class="t-role">Data Scientist · Stage</div>
+            <p class="t-desc">Analyse de la performance commerciale d'un showroom parisien du secteur mode. Construction de dashboards de suivi des ventes, modélisation de la demande saisonnière et extraction d'insights produits pour orienter les décisions d'achat. Premier contact avec la data en contexte retail et luxe accessible.</p>
+            <div class="t-highlights">
+              <span class="t-tag">Python · Pandas</span>
+              <span class="t-tag">Data Visualisation</span>
+              <span class="t-tag">Analyse commerciale</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MARSA MAROC -->
+        <div class="titem">
+          <div class="t-period">2023</div>
+          <div class="titem-dot"></div>
+          <div class="t-content">
+            <div class="t-co">MARSA MAROC</div>
+            <div class="t-role">Data Analyst Financier · Stage</div>
+            <p class="t-desc">Analyse financière et opérationnelle des flux portuaires. Conception de tableaux de bord de reporting à destination de la direction générale, synthèse d'indicateurs de performance clés et modélisation de prévisions financières. Expérience fondatrice à la croisée de la finance et de la data.</p>
+            <div class="t-highlights">
+              <span class="t-tag">Reporting direction</span>
+              <span class="t-tag">Analyse financière</span>
+              <span class="t-tag">KPIs opérationnels</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /reveal -->
+
+      <!-- EDUCATION -->
+      <div class="eyebrow reveal" style="margin-top:2.5rem">SKILL TREE</div>
+      <h2 class="stitle reveal" style="font-size:clamp(1.4rem,2.5vw,2rem)">Formation.</h2>
+      <div class="edu-grid reveal">
+        <div class="edu-card">
+          <div class="edu-year">2024 — 2026</div>
+          <div class="edu-school">ESLSCA · ESIC</div>
+          <div class="edu-deg">MBA1 Data Science<br>M2 Chef de Projet Data &amp; IA</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-year">2018 — 2024</div>
+          <div class="edu-school">ENCG CASABLANCA</div>
+          <div class="edu-deg">M2 Gestion et analyse financière</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-year">EN COURS</div>
+          <div class="edu-school">AUTODIDACTE</div>
+          <div class="edu-deg">Docker · FastAPI · MLflow · Full-Stack · LLMOps</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <button class="section-nav-btn" onclick="navToSection('contact')">
+    <span class="arrow-icon">▼</span> RECRUIT
+  </button>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CONTACT
+══════════════════════════════════════════ -->
+<section id="contact">
+  <div class="bg-grid"></div>
+  <div class="orb" style="width:600px;height:600px;background:var(--purple);bottom:-30%;left:50%;transform:translateX(-50%)"></div>
+  <div class="scanlines"></div>
+
+  <div class="s-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center">
+    <!-- LEFT chars + dialog -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:1.5rem">
+      <div class="dlg reveal" style="width:100%;max-width:340px">
+        <div class="dc dc-tl"></div><div class="dc dc-tr"></div>
+        <div class="dc dc-bl"></div><div class="dc dc-br"></div>
+        <div class="dlg-name">SANAE NAJIMI</div>
+        <div class="dlg-text" id="dt-con" style="min-height:80px">Cliquez ▶ PLAY !</div>
+        <div class="dlg-foot">
+          <div class="dlg-ctr" id="ctr-con">─ / ─</div>
+          <div class="dlg-btns">
+            <button class="dbtn play" id="play-con" onclick="startDlg('con')">▶ PLAY</button>
+            <button class="dbtn" id="prev-con" onclick="prevDlg('con')" disabled style="display:none">◀</button>
+            <button class="dbtn" id="next-con" onclick="nextDlg('con')" disabled style="display:none">▶</button>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:2rem;align-items:flex-end">
+        <div class="pchar-idle"><canvas id="c-sanae-con" class="pchar" width="40" height="56" style="width:120px;height:168px"></canvas></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:.3rem">
+          <div class="pchar-idle" style="animation-delay:.4s"><canvas id="c-rec-con" class="pchar" width="40" height="56" style="width:120px;height:168px"></canvas></div>
+          <div style="font-family:var(--retro);font-size:5px;color:var(--purple)">RECRUTEUR</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT contact card -->
+    <div class="reveal">
+      <div class="ccard">
+        <div class="dc dc-tl"></div><div class="dc dc-tr"></div>
+        <div class="dc dc-bl"></div><div class="dc dc-br"></div>
+        <div class="ccard-title">RECRUTE-MOI !</div>
+        <div class="ccard-sub">CDI Data Scientist ou Data Engineer<br>Île-de-France · HealthTech · Conseil · Scale-up<br>Disponible : 28 Septembre 2026</div>
+        <div class="clinks">
+          <a href="mailto:sanae.najimi921@email.com" class="clink" style="border-color:var(--lime);color:var(--lime)">📧 sanae.najimi921@email.com</a>
+          <a href="https://www.linkedin.com/in/sanae-najimi-a63306205/" target="_blank" class="clink">💼 LinkedIn · /in/sanae-najimi-a63306205/</a>
+          <a href="https://github.com/Sanaenajimi" target="_blank" class="clink">⌨️ GitHub · @Sanaenajimi</a>
+          <a href="#" class="clink">📄 Télécharger CV PDF</a>
+        </div>
+        <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border)">
+          <div style="font-family:var(--retro);font-size:6px;color:var(--muted);margin-bottom:.5rem">ACHIEVEMENTS</div>
+          <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+            <span style="font-family:var(--retro);font-size:6px;padding:.25rem .5rem;background:rgba(184,244,0,.06);border:1px solid rgba(184,244,0,.2);color:var(--lime)">⚡ 98% TIME SAVER</span>
+            <span style="font-family:var(--retro);font-size:6px;padding:.25rem .5rem;background:rgba(124,58,237,.06);border:1px solid rgba(124,58,237,.2);color:#9b80ff">🔬 GXP PHARMA</span>
+            <span style="font-family:var(--retro);font-size:6px;padding:.25rem .5rem;background:rgba(6,182,212,.06);border:1px solid rgba(6,182,212,.2);color:var(--teal)">🎓 DOUBLE DIPLÔME</span>
+            <span style="font-family:var(--retro);font-size:6px;padding:.25rem .5rem;background:rgba(236,72,153,.06);border:1px solid rgba(236,72,153,.2);color:var(--pink)">🚀 RAG LOCAL LLM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to top -->
+  <button class="section-nav-btn" onclick="navToSection('hero')" style="animation:none">
+    <span class="arrow-icon" style="transform:rotate(180deg);display:inline-block">▼</span> BACK TO TOP
+  </button>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="f-text">© 2026 SANAE NAJIMI · PARIS DATA UNIVERSE</div>
+  <div class="savepoint">💾 GAME SAVED · SEPT 2026</div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
