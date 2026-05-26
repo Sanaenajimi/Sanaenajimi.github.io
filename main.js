@@ -1,10 +1,3 @@
-/* ═══════════════════════════════════════════════
-   SANAE.EXE — MAIN SCRIPT
-   ═══════════════════════════════════════════════ */
-
-// ════════════════════════════════════════════════════
-// SPRITE DATA
-// ════════════════════════════════════════════════════
 const SANAE_ROWS = [
   [],
   [],
@@ -701,7 +694,7 @@ window.switchProject = function(idx){
   showNotif(`QUEST ${idx+1} CHARGÉE`);
 };
 // ════════════════════════════════════════════════════
-// ✅ NEW · SKIP BOOT SCREEN
+// SKIP BOOT SCREEN
 // ════════════════════════════════════════════════════
 window.skipBoot = function(){
   const bootEl = document.getElementById('boot');
@@ -819,7 +812,7 @@ window.nextDlg = function(key){const s=DS[key],d=DLGS[key];if(!s.typing&&s.idx<d
 window.prevDlg = function(key){const s=DS[key];if(!s.typing&&s.idx>0)typeMsg(key,s.idx-1);};
 
 // ════════════════════════════════════════════════════
-// SECTION NAV — smooth scroll to next section
+// SECTION NAV 
 // ════════════════════════════════════════════════════
 const SECTIONS = ['hero','about','skills','projects','experience','cv','contact'];
 
@@ -931,7 +924,7 @@ function initParticles(){
   });
 }
 // ════════════════════════════════════════════════════
-// ✅ MODAL ZOOM CV
+//  MODAL ZOOM CV
 // ════════════════════════════════════════════════════
 window.openCVModal = function(){
   const modal = document.getElementById('cv-modal');
