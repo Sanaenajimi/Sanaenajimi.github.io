@@ -288,14 +288,16 @@ const SFX = {
   nav(){ playNote(262,0.12,0.1,0); }
 };
 
+const SVG_SOUND_ON = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
+const SVG_SOUND_OFF = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
+
 window.toggleSound = function(){
   soundEnabled = !soundEnabled;
   const btn = document.getElementById('sound-btn');
-  btn.textContent = soundEnabled ? '🔊 SON ON' : '🔇 SON OFF';
   btn.classList.toggle('muted', !soundEnabled);
+  btn.innerHTML = soundEnabled ? SVG_SOUND_ON : SVG_SOUND_OFF;
   if(soundEnabled) playNote(262,0.15,0.13);
 };
-
 // ════════════════════════════════════════════════════
 // SPRITE RENDERERS
 // ════════════════════════════════════════════════════
@@ -485,8 +487,7 @@ function drawSceneBg(canvas, variant){
 const BG_MAP={
   '0-0':'office','0-1':'office-problem','0-2':'pc-work','0-3':'office-victory',
   '1-0':'meeting','1-1':'pc-work','1-2':'office-victory',
-  '2-0':'office','2-1':'pc-work','2-2':'office-victory',
-  '3-0':'lab','3-1':'pc-work','3-2':'office-victory',
+  '2-0':'lab','2-1':'pc-work','2-2':'office-victory',
 };
 
 const CHAR_MAP={
@@ -518,48 +519,85 @@ const CHAR_MAP={
     {id:'p1s2-mgr',type:'npc2',x:500,scale:0.92,label:'MANAGER',talking:false},
     {id:'p1s2-npc',type:'npc1',x:680,scale:0.87,label:'ÉQUIPE',talking:false},
   ],
-  '2-0':[{id:'p2s0-sanae',type:'sanae',x:200,scale:1,label:'SANAE',talking:true}],
+  '2-0':[
+    {id:'p2s0-sanae',type:'sanae',x:90,scale:1,label:'SANAE',talking:false},
+    {id:'p2s0-prof',type:'npc2',x:550,scale:0.92,label:'PROF.',talking:true},
+  ],
   '2-1':[{id:'p2s1-sanae',type:'sanae',x:430,scale:1,label:'SANAE',talking:true}],
   '2-2':[
     {id:'p2s2-sanae',type:'sanae',x:90,scale:1,label:'SANAE',talking:true},
-    {id:'p2s2-team',type:'npc1',x:540,scale:0.92,label:'TEAM',talking:false},
-  ],
-  '3-0':[
-    {id:'p3s0-sanae',type:'sanae',x:90,scale:1,label:'SANAE',talking:false},
-    {id:'p3s0-prof',type:'npc2',x:550,scale:0.92,label:'PROF.',talking:true},
-  ],
-  '3-1':[{id:'p3s1-sanae',type:'sanae',x:430,scale:1,label:'SANAE',talking:true}],
-  '3-2':[
-    {id:'p3s2-sanae',type:'sanae',x:90,scale:1,label:'SANAE',talking:true},
-    {id:'p3s2-prof',type:'npc2',x:550,scale:0.92,label:'PROF.',talking:false},
+    {id:'p2s2-prof',type:'npc2',x:550,scale:0.92,label:'PROF.',talking:false},
   ],
 };
 
-const SCRIPTS={
+const SCRIPTS = {
+  // ═══ PROJET 0 : SAP AUTO ═══
   0:{max:3,data:[
-    {step:'ACTE 1 · RENCONTRE',spk:'ÉQUIPE GMAO',txt:"L'équipe GMAO a besoin de visualiser ses KPIs techniques pour piloter l'activité maintenance. Les données sont dans SAP, mais l'extraction manuelle quotidienne est chronophage, source d'erreurs… et personne n'a le temps de la faire !"},
-    {step:'ACTE 2 · ANALYSE 💡',spk:'SANAE',txt:"J'analyse le besoin et les contraintes : le scripting SAP est bloqué par la DSI (pas de VBA possible). Solution → Python + Tesseract OCR pour lire l'écran et automatiser l'extraction de A à Z. La donnée ira directement dans le bon dossier SharePoint, prête pour Power BI."},
-    {step:'ACTE 3 · DÉVELOPPEMENT',spk:'SANAE · AU BUREAU',txt:"PyAutoGUI pilote SAP. L'OCR détecte chaque champ par son label. YAML configure les transactions IH06, IH08, MB51. Export Excel → SharePoint automatique. Power BI se connecte par-dessus pour la visualisation temps réel. ⚡"},
-    {step:'ACTE 4 · LIVRAISON ✅',spk:'SANAE → ÉQUIPE GMAO',txt:"Mission accomplie ! Dashboard Power BI avec tous les KPIs GMAO, ET le process d'extraction tourne tout seul chaque matin. 2h de travail manuel → 5 minutes. Zéro erreur humaine. Zéro intervention.",impact:true},
+    {
+      step:'ACTE 1 · RENCONTRE',
+      spk:'ÉQUIPE GMAO',
+      txt:"On a besoin de piloter notre maintenance via des KPIs clairs. Mais les données sont bloquées dans SAP et les extractions manuelles nous prennent trop de temps."
+    },
+    {
+      step:'ACTE 2 · ANALYSE 💡',
+      spk:'SANAE',
+      txt:"Je creuse le besoin : il faut alimenter les rapports tous les jours, mais sans ressource dédiée. Le scripting SAP est bloqué par la DSI. Ma solution : Python + OCR Tesseract pour lire l'écran et automatiser l'extraction jusqu'à Power BI."
+    },
+    {
+      step:'ACTE 3 · DÉVELOPPEMENT',
+      spk:'SANAE · AU BUREAU',
+      txt:"PyAutoGUI pilote SAP, l'OCR détecte chaque champ, YAML configure les transactions IH06, IH08, MB51. L'export part directement vers SharePoint, et Power BI se branche par-dessus. ⚡"
+    },
+    {
+      step:'ACTE 4 · LIVRAISON ✅',
+      spk:'SANAE → ÉQUIPE GMAO',
+      txt:"Mission accomplie : dashboard Power BI en place, extractions automatiques chaque matin. 2h de travail manuel → 5 minutes. Zéro intervention, zéro erreur.",
+      impact:true
+    },
   ]},
+
+  // ═══ PROJET 1 : SNOWFLAKE ═══
   1:{max:2,data:[
-    {step:'ACTE 1 · LE DÉFI',spk:'MANAGER DATA & DIGITAL',txt:"Sanae, avec la cession vers Adragos on va perdre l'accès au data warehouse Sanofi. Il faut récupérer nos données AVANT. 26 rapports Power BI, près d'une centaine de requêtes Snowflake à reconfigurer. Manuellement, c'est des semaines de travail."},
-    {step:'ACTE 2 · LA SOLUTION ⚡',spk:'SANAE',txt:"J'automatise tout : je parse le code M de chaque rapport, extrais les requêtes SQL, puis un script se connecte à Snowflake (contournement SSO), applique du chunking pour la mémoire, et rapatrie des millions de lignes en 15 minutes. 96 requêtes → 26 rapports migrés avant la cession."},
-    {step:'ACTE 3 · RÉSULTAT ✅',spk:'RÉSULTAT FINAL',txt:"DONE. 39h de travail manuel → 15 minutes de script. Zéro perte de données. Zéro interruption de production. L'équipe peut reconfigurer ses rapports et reprendre l'activité immédiatement.",impact:true},
+    {
+      step:'ACTE 1 · LE DÉFI',
+      spk:'MANAGER DATA & DIGITAL',
+      txt:"Sanae, avec la cession vers Adragos, on va perdre l'accès au data warehouse Sanofi. Il faut récupérer nos donnée. On a +26 rapports Power BI, près de 100 requêtes Snowflake. Manuellement, c'est des semaines..."
+    },
+    {
+      step:'ACTE 2 · LA SOLUTION ⚡',
+      spk:'SANAE',
+      txt:"Laissez moi voir.. J'ai une solution ! J'automatise tout : je parse le code M de chaque rapport pour extraire les requêtes SQL, puis un script Python se connecte à Snowflake (contournement SSO), gère la mémoire en chunks et rapatrie des millions de lignes."
+    },
+    {
+      step:'ACTE 3 · RÉSULTAT ✅',
+      spk:'RÉSULTAT FINAL',
+      txt:"39h de travail manuel → 15 minutes de script. 96 requêtes traitées, 26 rapports migrés. Zéro perte de données, zéro interruption. L'équipe a repris l'activité immédiatement.",
+      impact:true
+    },
   ]},
+
+  // ═══ PROJET 2 : CANCER CV ═══
   2:{max:2,data:[
-    {step:"ACTE 1 · L'IDÉE",spk:'SANAE',txt:"Et si les équipes pharma pouvaient interroger leurs KPIs en langage naturel, sans API payante, 100% en local ? LLaMA 3 + FAISS sur ma machine. Les données sensibles ne quittent jamais l'entreprise."},
-    {step:'ACTE 2 · ARCHITECTURE',spk:'SANAE · DEV',txt:"LangChain orchestre le pipeline RAG. Ollama fait tourner LLaMA 3 localement. sentence-transformers génère les embeddings. FAISS stocke les vecteurs. Streamlit + Plotly pour l'interface. Coût cloud : 0 €. Confidentialité totale."},
-    {step:'ACTE 3 · LIVE ✅',spk:'DÉMO EN DIRECT',txt:"\"Quel est le taux de rendement LYO ce mois ?\" → réponse en 2 secondes. \"Lots en retard de stabilité\" → tableau filtré instantané. 100% local, sans abonnement, sans fuite de données.",impact:true},
-  ]},
-  3:{max:2,data:[
-    {step:'ACTE 1 · LE TP',spk:'PROFESSEUR',txt:"TP multimodal JSRT : détectez automatiquement les nodules pulmonaires sur des radiographies thoraciques. Comparez au minimum 3 modèles de ML. Interface déployée en production. Deadline : 2 semaines."},
-    {step:'ACTE 2 · PIPELINE ML',spk:'SANAE',txt:"4 modèles comparés : Random Forest, XGBoost, CNN custom et ResNet50 en transfer learning. Data augmentation, feature engineering, comparaison AUC / F1 / précision. Stack scikit-learn + PyTorch."},
-    {step:'ACTE 3 · DEPLOYED ✅',spk:'RÉSULTAT',txt:"ResNet50 : meilleure AUC. Application Streamlit déployée sur Render via CI/CD GitHub Actions. Chaque push de code → déploiement automatique. Détection de nodules en temps réel sur radio uploadée. 🏆",impact:true},
+    {
+      step:'ACTE 1 · LE TP',
+      spk:'PROFESSEUR',
+      txt:"TP multimodal sur le dataset JSRT : détectez les nodules pulmonaires sur des radiographies thoraciques. Au moins 3 modèles à comparer, application déployée en production. Deadline : 2 semaines."
+    },
+    {
+      step:'ACTE 2 · PIPELINE ML',
+      spk:'SANAE',
+      txt:"4 modèles testés : Random Forest, XGBoost, CNN custom et ResNet50 en transfer learning. Data augmentation, feature engineering et comparaison AUC / F1 / précision. Stack scikit-learn + PyTorch."
+    },
+    {
+      step:'ACTE 3 · DEPLOYED ✅',
+      spk:'RÉSULTAT',
+      txt:"ResNet50 sort gagnant. Application Streamlit déployée sur Render via CI/CD GitHub Actions : chaque push = déploiement auto. Détection en temps réel sur radio uploadée. 🏆",
+      impact:true
+    },
   ]},
 };
 
-const sceneState={0:0,1:0,2:0,3:0};
+const sceneState={0:0,1:0,2:0};
 const activeTimers={};
 
 function stopAllSceneTimers(){
@@ -662,28 +700,82 @@ window.switchProject = function(idx){
   loadScene(idx,0); SFX.tabSwitch();
   showNotif(`QUEST ${idx+1} CHARGÉE`);
 };
-
+// ════════════════════════════════════════════════════
+// ✅ NEW · SKIP BOOT SCREEN
+// ════════════════════════════════════════════════════
+window.skipBoot = function(){
+  const bootEl = document.getElementById('boot');
+  if(!bootEl) return;
+  bootEl.classList.add('hide');
+  setTimeout(()=>bootEl.remove(), 700);
+  SFX.boot();
+};
 // ════════════════════════════════════════════════════
 // CLASSIC DIALOGUE SYSTEM
 // ════════════════════════════════════════════════════
-const DLGS={
-  hero:{textId:'dt-hero',curId:'dc-hero',ctrId:'ctr-hero',playId:'play-hero',prevId:'prev-hero',nextId:'next-hero',
-    charId:'c-sanae-hero',charType:'sanae',
-    msgs:["Bonjour ! Je suis Sanae Najimi.\nData Analyst en alternance chez Adragos Pharma (ex-Sanofi), je gère au quotidien des données dans un environnement GxP/BPF et je les transforme en décisions concrètes.",
-          "Explorez mes différents projets dans les sections suivantes. ✨"]},
-  about:{textId:'dt-about',curId:null,ctrId:'ctr-about',playId:'play-about',prevId:'prev-about',nextId:'next-about',
-    charId:'c-sanae-about',charType:'sanae',
-    msgs:["Actuellement chez Adragos pharma je pilote des projets BI dans un environnement pharmaceutique industriel. Du concret, du terrain, pas seulement la théorie.",
-          "39 heures de travail réduites à 15 minutes grâce à l'automatisation Python. 2 heures d'extractions SAP ramenées à 2 minutes. Ce sont mes résultats concrets.",
-          "Je cherche un CDI où je peux continuer à construire des choses qui ont un vrai impact."]},
-  exp:{textId:'dt-exp',curId:null,ctrId:'ctr-exp',playId:'play-exp',prevId:'prev-exp',nextId:'next-exp',
-    charId:'c-sanae-exp',charType:'sanae',
-    msgs:["De Sanofi vers Adragos pharma, un contexte de cession avec beaucoup de challenges. Expérience terrain rare pour un profil junior.",
-          "Double diplôme (Finance & Data/IA) en parallèle de l'alternance.\nJe ne fais rien à moitié. 💎"]},
-  con:{textId:'dt-con',curId:null,ctrId:'ctr-con',playId:'play-con',prevId:'prev-con',nextId:'next-con',
-    charId:'c-sanae-con',charType:'sanae',
-    msgs:["Vous avez exploré jusqu'ici —\nmerci ! Je serais ravie d'échanger\nautour d'une opportunité. 😄",
-          "Disponible dès le 28 sept. 2026\nen Île-de-France. Un email —\nje réponds toujours dans les 24h."]}
+const DLGS = {
+  hero:{
+    textId:'dt-hero',
+    curId:'dc-hero',
+    ctrId:'ctr-hero',
+    playId:'play-hero',
+    prevId:'prev-hero',
+    nextId:'next-hero',
+    charId:'c-sanae-hero',
+    charType:'sanae',
+    msgs:[
+      "Bonjour, je suis NAJIMI Sanae !",
+      "Je suis actuellement en alternance chez Sanofi / Adragos Pharma sur des sujets data, automatisation et reporting BI",
+      "Je vous laisse découvrir mes projets et mon parcours."
+    ]
+  },
+
+  about:{
+    textId:'dt-about',
+    curId:null,
+    ctrId:'ctr-about',
+    playId:'play-about',
+    prevId:'prev-about',
+    nextId:'next-about',
+    charId:'c-sanae-about',
+    charType:'sanae',
+    msgs:[
+      "La curiosité et le désir d'apprentissage sont mes carburants.",
+      "Je cherche un environnement où je peux continuer à progresser et contribuer durablement"
+    ]
+  },
+
+  exp:{
+    textId:'dt-exp',
+    curId:null,
+    ctrId:'ctr-exp',
+    playId:'play-exp',
+    prevId:'prev-exp',
+    nextId:'next-exp',
+    charId:'c-sanae-exp',
+    charType:'sanae',
+    msgs:[
+      "Mon expérience la plus structurante, c’est l’alternance en environnement pharmaceutique chez Sanofi puis Adragos.",
+      "J’y ai travaillé sur Power BI, Snowflake, SAP et plusieurs automatisations Python à fort impact opérationnel.",
+      "Ce contexte m’a appris à être autonome, rigoureuse et orientée résultat."
+    ]
+  },
+
+  con:{
+    textId:'dt-con',
+    curId:null,
+    ctrId:'ctr-con',
+    playId:'play-con',
+    prevId:'prev-con',
+    nextId:'next-con',
+    charId:'c-sanae-con',
+    charType:'sanae',
+    msgs:[
+      "Merci d’avoir pris le temps de visiter mon portfolio.",
+      "Si mon profil vous intéresse, je serai ravie d’échanger avec vous.",
+      "Je suis disponible à partir de fin septembre 2026 en Île-de-France."
+    ]
+  }
 };
 const DS={};
 Object.keys(DLGS).forEach(k=>DS[k]={idx:-1,typing:false,timer:null,started:false});
@@ -729,7 +821,7 @@ window.prevDlg = function(key){const s=DS[key];if(!s.typing&&s.idx>0)typeMsg(key
 // ════════════════════════════════════════════════════
 // SECTION NAV — smooth scroll to next section
 // ════════════════════════════════════════════════════
-const SECTIONS = ['hero','about','skills','projects','experience','contact'];
+const SECTIONS = ['hero','about','skills','projects','experience','cv','contact'];
 
 window.navToSection = function(targetId){
   const el = document.getElementById(targetId);
@@ -782,12 +874,11 @@ function initCursor(){
     curRing.style.transform=`translate(${rx-12}px,${ry-12}px)`;
     requestAnimationFrame(animCursor);
   })();
-  document.querySelectorAll('a,button,.proj-tab,.skill-card,.titem,.clink,.section-nav-btn').forEach(el=>{
+  document.querySelectorAll('a,button,.proj-tab,.skill-card,.titem,.clink,.section-nav-btn,.sticky-cv,.mp-link,.qf-item,.eb-tag,.nav-mail').forEach(el=>{
     el.addEventListener('mouseenter',()=>{curRing.style.width='36px';curRing.style.height='36px';});
     el.addEventListener('mouseleave',()=>{curRing.style.width='24px';curRing.style.height='24px';});
   });
-}
-
+};
 // ════════════════════════════════════════════════════
 // EXP BAR
 // ════════════════════════════════════════════════════
@@ -839,7 +930,56 @@ function initParticles(){
     }
   });
 }
+// ════════════════════════════════════════════════════
+// ✅ MODAL ZOOM CV
+// ════════════════════════════════════════════════════
+window.openCVModal = function(){
+  const modal = document.getElementById('cv-modal');
+  const iframe = document.getElementById('cv-modal-iframe');
+  if(!modal || !iframe) return;
+  
+  // Charge le PDF dans l'iframe modal
+  iframe.src = 'CV_Sanae_Najimi.pdf#view=FitH';
+  
+  // Ouvre le modal avec animation
+  modal.classList.add('active');
+  document.body.classList.add('modal-open');
+  
+    // ✅ Force le curseur custom visible dans le modal
+  const curDot = document.getElementById('cur');
+  const curRing = document.getElementById('cur2');
+  if(curDot) curDot.style.zIndex = '99999';
+  if(curRing) curRing.style.zIndex = '99998';
+  
+  // Son d'ouverture
+  if(typeof SFX !== 'undefined' && SFX.dlgOpen) SFX.dlgOpen();
+};
 
+window.closeCVModal = function(){
+  const modal = document.getElementById('cv-modal');
+  const iframe = document.getElementById('cv-modal-iframe');
+  if(!modal) return;
+  
+  modal.classList.remove('active');
+  document.body.classList.remove('modal-open');
+  
+  // Vide l'iframe pour libérer la mémoire
+  setTimeout(() => {
+    if(iframe) iframe.src = '';
+  }, 300);
+  
+  if(typeof SFX !== 'undefined' && SFX.nav) SFX.nav();
+};
+
+// Fermer avec la touche Échap
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape'){
+    const modal = document.getElementById('cv-modal');
+    if(modal && modal.classList.contains('active')){
+      closeCVModal();
+    }
+  }
+});
 // ════════════════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════════════════
