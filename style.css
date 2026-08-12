@@ -330,6 +330,8 @@
   .proj-impact-l{font-family:var(--retro);font-size:5px;color:var(--muted);margin-top:.2rem}
   .proj-tags{display:flex;flex-wrap:wrap;gap:.3rem;padding:.7rem 1.5rem}
   .ptag{font-family:var(--retro);font-size:5px;padding:.18rem .45rem;border:1px solid rgba(255,255,255,.07);color:#5555aa}
+  .proj-live-wrap{display:flex;align-items:center;flex-wrap:wrap;gap:.7rem;padding:0 1.5rem .9rem}
+  .proj-live-hint{font-family:var(--retro);font-size:5px;color:var(--muted);line-height:1.6}
   .rpg-controls{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.5rem;background:#040410}
   .rpg-progress{display:flex;gap:4px}
   .rpg-dot{width:8px;height:8px;background:rgba(255,255,255,.1);transition:background .2s}

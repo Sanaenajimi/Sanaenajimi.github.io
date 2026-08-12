@@ -481,6 +481,8 @@ const BG_MAP={
   '0-0':'office','0-1':'office-problem','0-2':'pc-work','0-3':'office-victory',
   '1-0':'meeting','1-1':'pc-work','1-2':'office-victory',
   '2-0':'lab','2-1':'pc-work','2-2':'office-victory',
+  '3-0':'lab','3-1':'pc-work','3-2':'office-victory',
+  '4-0':'lab','4-1':'pc-work','4-2':'office-victory',
 };
 
 const CHAR_MAP={
@@ -520,6 +522,18 @@ const CHAR_MAP={
   '2-2':[
     {id:'p2s2-sanae',type:'sanae',x:90,scale:1,label:'SANAE',talking:true},
     {id:'p2s2-prof',type:'npc2',x:550,scale:0.92,label:'PROF.',talking:false},
+  ],
+  '3-0':[{id:'p3s0-sanae',type:'sanae',x:430,scale:1,label:'SANAE',talking:true}],
+  '3-1':[{id:'p3s1-sanae',type:'sanae',x:430,scale:1,label:'SANAE',talking:true}],
+  '3-2':[
+    {id:'p3s2-sanae',type:'sanae',x:90,scale:1,label:'SANAE',talking:true},
+    {id:'p3s2-npc',type:'npc2',x:500,scale:0.92,label:'UTILISATEUR',talking:false},
+  ],
+  '4-0':[{id:'p4s0-sanae',type:'sanae',x:430,scale:1,label:'SANAE',talking:true}],
+  '4-1':[{id:'p4s1-sanae',type:'sanae',x:430,scale:1,label:'SANAE',talking:true}],
+  '4-2':[
+    {id:'p4s2-sanae',type:'sanae',x:90,scale:1,label:'SANAE',talking:true},
+    {id:'p4s2-npc',type:'npc1',x:500,scale:0.92,label:'ÉNERGÉTICIEN',talking:false},
   ],
 };
 
@@ -588,9 +602,49 @@ const SCRIPTS = {
       impact:true
     },
   ]},
+
+  // ═══ PROJET 3 : FOCUSLENS ═══
+  3:{max:2,data:[
+    {
+      step:'ACTE 1 · LE CONSTAT',
+      spk:'SANAE',
+      txt:"La somnolence et la distraction au volant causent des milliers d'accidents évitables chaque année. Je voulais un outil capable de détecter la fatigue en analysant juste le visage, en temps réel, sans matériel spécialisé."
+    },
+    {
+      step:'ACTE 2 · PIPELINE ROBUSTE ⚡',
+      spk:'SANAE · EN DÉVELOPPEMENT',
+      txt:"MediaPipe détecte 468 points du visage, j'en dérive l'ouverture des yeux (EAR), les bâillements (MAR) et la pose 3D de la tête. Calibration automatique par personne, hystérésis anti-faux-positifs, lissage EMA sur chaque métrique."
+    },
+    {
+      step:'ACTE 3 · LIVRÉ ✅',
+      spk:'RÉSULTAT',
+      txt:"Application Streamlit complète : upload vidéo ou webcam, score d'attention /100 en direct, rapport JSON + timeline CSV + graphiques téléchargeables. Détection somnolence façon PERCLOS, standard utilisé par la NHTSA.",
+      impact:true
+    },
+  ]},
+
+  // ═══ PROJET 4 : SOLARLENS ═══
+  4:{max:2,data:[
+    {
+      step:'ACTE 1 · INSPIRATION',
+      spk:'VEILLE TECH · VIVATECH 2026',
+      txt:"Les énergéticiens comme ENGIE déploient drones + IA (Raptor Maps) pour inspecter leurs parcs photovoltaïques à grande échelle. Je voulais reproduire cette logique de détection d'anomalies PV, à échelle réduite."
+    },
+    {
+      step:'ACTE 2 · MODÈLE & DASHBOARD ⚡',
+      spk:'SANAE · EN DÉVELOPPEMENT',
+      txt:"ResNet-50 + bloc d'attention Squeeze-and-Excitation, fine-tuné sur des images de panneaux (6 classes : propre, poussière, neige, fiente, défaut électrique, dommage physique). Grad-CAM pour expliquer chaque prédiction, dashboard Streamlit avec monitoring temps réel."
+    },
+    {
+      step:'ACTE 3 · LIVRÉ ✅',
+      spk:'RÉSULTAT',
+      txt:"93.2% d'accuracy. Déployé en ligne avec chargement automatique du modèle depuis Hugging Face Hub. Upload d'une photo de panneau → classification instantanée + carte de chaleur Grad-CAM. ☀️",
+      impact:true
+    },
+  ]},
 };
 
-const sceneState={0:0,1:0,2:0};
+const sceneState={0:0,1:0,2:0,3:0,4:0};
 const activeTimers={};
 
 function stopAllSceneTimers(){
@@ -629,8 +683,10 @@ function loadScene(p,s){
   type();
   const imp=document.getElementById(`imp-${p}`);
   const tags=document.getElementById(`tags-${p}`);
+  const live=document.getElementById(`live-${p}`);
   if(imp) imp.style.display=sc.impact?'flex':'none';
   if(tags) tags.style.display=sc.impact?'flex':'none';
+  if(live) live.style.display=sc.impact?'flex':'none';
   const prog=document.getElementById(`prog-${p}`);
   if(prog)[...prog.children].forEach((d,i)=>{d.className='rpg-dot'+(i<s?' done':i===s?' current':'');});
   document.getElementById(`prev-${p}`).disabled=s===0;
@@ -838,7 +894,7 @@ function bootTick(){
   if(bootPct<100){setTimeout(bootTick,120);}
   else{
     const bootEl=document.getElementById('boot');
-    setTimeout(()=>{ bootEl.classList.add('hide'); setTimeout(()=>bootEl.remove(),700); },400);
+    if(bootEl) setTimeout(()=>{ bootEl.classList.add('hide'); setTimeout(()=>bootEl.remove(),700); },400);
     setTimeout(()=>SFX.boot(),500);
   }
 }
