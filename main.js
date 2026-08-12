@@ -462,6 +462,58 @@ function drawSceneBg(canvas, variant){
       ctx.beginPath();ctx.arc(sx+72,sy+82,9,0,Math.PI*2);ctx.stroke();
     }
   }
+  if(variant==='solar-panels'){
+    for(let i=0;i<3;i++){
+      const sx=100+i*320,sy=H-298;
+      ctx.fillStyle='#050e08'; ctx.fillRect(sx,sy,210,168);
+      ctx.strokeStyle='#123322'; ctx.lineWidth=2; ctx.strokeRect(sx,sy,210,168);
+      // ciel dégradé + soleil
+      const skyg=ctx.createLinearGradient(sx,sy,sx,sy+70);
+      skyg.addColorStop(0,'rgba(255,196,90,0.10)');skyg.addColorStop(1,'transparent');
+      ctx.fillStyle=skyg; ctx.fillRect(sx+4,sy+4,202,66);
+      ctx.fillStyle='rgba(255,205,90,0.5)';
+      ctx.beginPath();ctx.arc(sx+168,sy+28,12,0,Math.PI*2);ctx.fill();
+      // grille de panneaux solaires (4x3), un panneau en défaut sur le 2e écran
+      const gx=sx+18,gy=sy+78,cw=42,ch=24,gap=4;
+      for(let r=0;r<3;r++)for(let c=0;c<4;c++){
+        const px=gx+c*(cw+gap),py=gy+r*(ch+gap);
+        const isDefect=(i===1&&r===1&&c===2);
+        ctx.fillStyle=isDefect?'rgba(239,68,68,0.35)':'rgba(86,194,180,0.16)';
+        ctx.fillRect(px,py,cw,ch);
+        ctx.strokeStyle=isDefect?'rgba(239,68,68,0.7)':'rgba(122,219,208,0.35)';
+        ctx.lineWidth=1; ctx.strokeRect(px,py,cw,ch);
+        ctx.beginPath();ctx.moveTo(px,py+ch/2);ctx.lineTo(px+cw,py+ch/2);
+        ctx.moveTo(px+cw/2,py);ctx.lineTo(px+cw/2,py+ch);ctx.stroke();
+        if(isDefect){
+          ctx.strokeStyle='rgba(239,68,68,0.9)';ctx.lineWidth=1.5;
+          ctx.beginPath();ctx.arc(px+cw/2,py+ch/2,15,0,Math.PI*2);ctx.stroke();
+        }
+      }
+    }
+  }
+  if(variant==='road-cam'){
+    for(let i=0;i<3;i++){
+      const sx=100+i*320,sy=H-298;
+      ctx.fillStyle='#050510'; ctx.fillRect(sx,sy,210,168);
+      ctx.strokeStyle='#1c1c3e'; ctx.lineWidth=2; ctx.strokeRect(sx,sy,210,168);
+      // route qui file vers l'horizon
+      const vx=sx+105,vy=sy+58;
+      ctx.fillStyle='rgba(30,30,60,0.6)';
+      ctx.beginPath();ctx.moveTo(vx,vy);ctx.lineTo(sx+18,sy+168);ctx.lineTo(sx+192,sy+168);ctx.closePath();ctx.fill();
+      ctx.strokeStyle='rgba(184,244,0,0.35)'; ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(vx,vy);ctx.lineTo(sx+90,sy+168);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(vx,vy);ctx.lineTo(sx+120,sy+168);ctx.stroke();
+      // visage de face + repères de landmarks (façon suivi MediaPipe)
+      ctx.strokeStyle='rgba(124,58,237,0.55)'; ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.ellipse(sx+105,sy+108,30,38,0,0,Math.PI*2);ctx.stroke();
+      ctx.fillStyle='rgba(6,182,212,0.75)';
+      [[-13,-6],[13,-6],[-13,-2],[13,-2],[0,10],[-9,20],[9,20]].forEach(([dx,dy])=>{
+        ctx.beginPath();ctx.arc(sx+105+dx,sy+108+dy,1.6,0,Math.PI*2);ctx.fill();
+      });
+      ctx.fillStyle='rgba(184,244,0,0.7)';
+      ctx.beginPath();ctx.arc(sx+105,sy+108,2,0,Math.PI*2);ctx.fill();
+    }
+  }
   if(variant==='office-victory'){
     for(let i=0;i<22;i++){
       const px=60+Math.random()*(W-120),py=20+Math.random()*200;
@@ -481,8 +533,8 @@ const BG_MAP={
   '0-0':'office','0-1':'office-problem','0-2':'pc-work','0-3':'office-victory',
   '1-0':'meeting','1-1':'pc-work','1-2':'office-victory',
   '2-0':'lab','2-1':'pc-work','2-2':'office-victory',
-  '3-0':'lab','3-1':'pc-work','3-2':'office-victory',
-  '4-0':'lab','4-1':'pc-work','4-2':'office-victory',
+  '3-0':'road-cam','3-1':'pc-work','3-2':'office-victory',
+  '4-0':'solar-panels','4-1':'pc-work','4-2':'office-victory',
 };
 
 const CHAR_MAP={
@@ -627,8 +679,8 @@ const SCRIPTS = {
   4:{max:2,data:[
     {
       step:'ACTE 1 · INSPIRATION',
-      spk:'VEILLE TECH · VIVATECH 2026',
-      txt:"Les énergéticiens comme ENGIE déploient drones + IA (Raptor Maps) pour inspecter leurs parcs photovoltaïques à grande échelle. Je voulais reproduire cette logique de détection d'anomalies PV, à échelle réduite."
+      spk:'VEILLE TECH',
+      txt:"Les grands énergéticiens investissent dans l'inspection automatisée de leurs parcs photovoltaïques : drones + IA pour détecter les anomalies sur des milliers de panneaux, à grande échelle. Je voulais reproduire cette logique de détection, à échelle réduite."
     },
     {
       step:'ACTE 2 · MODÈLE & DASHBOARD ⚡',
