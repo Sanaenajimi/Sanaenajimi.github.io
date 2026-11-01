@@ -826,8 +826,8 @@ const DLGS = {
     charType:'sanae',
     msgs:[
       "Bonjour, je suis NAJIMI Sanae !",
-      "Je suis actuellement en alternance chez Sanofi / Adragos Pharma sur des sujets data, automatisation et reporting BI",
-      "Je vous laisse découvrir mes projets et mon parcours."
+      "Je viens de terminer un an d'alternance chez Sanofi / Adragos Pharma : data, automatisation et reporting BI.",
+      "Diplômée et disponible pour un CDI, je vous laisse découvrir mes projets et mon parcours."
     ]
   },
 
@@ -856,7 +856,7 @@ const DLGS = {
     charId:'c-sanae-exp',
     charType:'sanae',
     msgs:[
-      "Mon expérience la plus structurante, c’est l’alternance en environnement pharmaceutique chez Sanofi puis Adragos.",
+      "Mon expérience la plus structurante : un an d’alternance en environnement pharmaceutique, chez Sanofi puis Adragos.",
       "J’y ai travaillé sur Power BI, Snowflake, SAP et plusieurs automatisations Python à fort impact opérationnel.",
       "Ce contexte m’a appris à être autonome, rigoureuse et orientée résultat."
     ]
@@ -874,7 +874,7 @@ const DLGS = {
     msgs:[
       "Merci d’avoir pris le temps de visiter mon portfolio.",
       "Si mon profil vous intéresse, je serai ravie d’échanger avec vous.",
-      "Je suis disponible à partir de fin septembre 2026 en Île-de-France."
+      "Je suis disponible immédiatement, en Île-de-France."
     ]
   }
 };
